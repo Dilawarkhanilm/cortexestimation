@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IBEX Simulator Project Estimate</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      h2 {
+        color: #34495e;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 5px;
+        margin-top: 30px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+        background: white;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+      th {
+        background-color: #3498db;
+        color: white;
+        font-weight: bold;
+      }
+      .phase-header {
+        background-color: #e8f4f8;
+        font-weight: bold;
+        color: #2c3e50;
+      }
+      .total-row {
+        background-color: #f8f9fa;
+        font-weight: bold;
+      }
+      .high-priority {
+        background-color: #ffebee;
+      }
+      .medium-priority {
+        background-color: #fff3e0;
+      }
+      .low-priority {
+        background-color: #f1f8e9;
+      }
+      .summary-box {
+        background: #e8f4f8;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 20px 0;
+      }
+      .download-btn {
+        background: #27ae60;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px 0;
+      }
+      .download-btn:hover {
+        background: #219a52;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🚗 IBEX Simulator - Project Development Estimate</h1>
+
+      <div class="summary-box">
+        <h3>📋 Project Summary</h3>
+        <ul>
+          <li>
+            <strong>Total Duration:</strong> 35-40 working days (7-8 weeks)
+          </li>
+          <li><strong>Daily Hours:</strong> 8 hours per day</li>
+          <li><strong>Total Hours:</strong> 280-320 hours</li>
+          <li>
+            <strong>Approach:</strong> Frontend First → Backend Integration →
+            Testing
+          </li>
+        </ul>
+      </div>
+
+      <h2>Phase 1: Frontend Development (Complete UI/UX)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 40%">Task</th>
+            <th style="width: 15%">Days</th>
+            <th style="width: 15%">Hours</th>
+            <th style="width: 15%">Priority</th>
+            <th style="width: 15%">Dependencies</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="phase-header">
+            <td colspan="5">🏗️ Foundation & Setup</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Project Setup & Configuration</td>
+            <td>1</td>
+            <td>8</td>
+            <td>High</td>
+            <td>None</td>
+          </tr>
+          <tr class="high-priority">
+            <td>New Design System Implementation</td>
+            <td>2</td>
+            <td>16</td>
+            <td>High</td>
+            <td>Design Assets</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Core Layout Components (TitleBar, Tabs)</td>
+            <td>2</td>
+            <td>16</td>
+            <td>High</td>
+            <td>Design System</td>
+          </tr>
+          <tr class="medium-priority">
+            <td>Context Management Refactoring</td>
+            <td>1</td>
+            <td>8</td>
+            <td>Medium</td>
+            <td>Core Components</td>
+          </tr>
+          <tr class="phase-header">
+            <td colspan="5">📄 Feature Pages Development</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Dashboard Page (Complete UI)</td>
+            <td>3</td>
+            <td>24</td>
+            <td>High</td>
+            <td>Layout Components</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Critical Event Sieve UI</td>
+            <td>2</td>
+            <td>16</td>
+            <td>High</td>
+            <td>Dashboard</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Simulink Interface UI</td>
+            <td>3</td>
+            <td>24</td>
+            <td>High</td>
+            <td>Core Components</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Scene Generation UI</td>
+            <td>2</td>
+            <td>16</td>
+            <td>High</td>
+            <td>Core Components</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Scenario Generation UI</td>
+            <td>3</td>
+            <td>24</td>
+            <td>High</td>
+            <td>Scene Generation</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Drive Lab Interface UI</td>
+            <td>3</td>
+            <td>24</td>
+            <td>High</td>
+            <td>Core Components</td>
+          </tr>
+          <tr class="medium-priority">
+            <td>Cyber Security Page UI</td>
+            <td>2</td>
+            <td>16</td>
+            <td>Medium</td>
+            <td>Core Components</td>
+          </tr>
+          <tr class="medium-priority">
+            <td>Functional Safety Page UI</td>
+            <td>2</td>
+            <td>16</td>
+            <td>Medium</td>
+            <td>Core Components</td>
+          </tr>
+          <tr class="low-priority">
+            <td>File Viewer UI</td>
+            <td>1</td>
+            <td>8</td>
+            <td>Low</td>
+            <td>Core Components</td>
+          </tr>
+          <tr class="low-priority">
+            <td>Additional Pages (About, Services, Contact)</td>
+            <td>1</td>
+            <td>8</td>
+            <td>Low</td>
+            <td>Core Components</td>
+          </tr>
+          <tr class="phase-header">
+            <td colspan="5">🎨 UI/UX Polish & Components</td>
+          </tr>
+          <tr class="medium-priority">
+            <td>Modal Components (Profile, Custom Popup)</td>
+            <td>1</td>
+            <td>8</td>
+            <td>Medium</td>
+            <td>Core Components</td>
+          </tr>
+          <tr class="medium-priority">
+            <td>ChatBot Integration</td>
+            <td>1</td>
+            <td>8</td>
+            <td>Medium</td>
+            <td>Core Layout</td>
+          </tr>
+          <tr class="medium-priority">
+            <td>Responsive Design Implementation</td>
+            <td>2</td>
+            <td>16</td>
+            <td>Medium</td>
+            <td>All Components</td>
+          </tr>
+          <tr class="total-row">
+            <td><strong>Frontend Phase Total</strong></td>
+            <td><strong>25</strong></td>
+            <td><strong>200</strong></td>
+            <td colspan="2"><strong>5 weeks</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Phase 2: Backend Integration</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 40%">Task</th>
+            <th style="width: 15%">Days</th>
+            <th style="width: 15%">Hours</th>
+            <th style="width: 15%">Priority</th>
+            <th style="width: 15%">Dependencies</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="phase-header">
+            <td colspan="5">🔌 API Integration Setup</td>
+          </tr>
+          <tr class="high-priority">
+            <td>API Service Layer Creation</td>
+            <td>1</td>
+            <td>8</td>
+            <td>High</td>
+            <td>Backend APIs</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Authentication System Integration</td>
+            <td>1</td>
+            <td>8</td>
+            <td>High</td>
+            <td>API Service</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Data Models & TypeScript Interfaces</td>
+            <td>1</td>
+            <td>8</td>
+            <td>High</td>
+            <td>API Documentation</td>
+          </tr>
+          <tr class="phase-header">
+            <td colspan="5">🔗 Feature API Connections</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Dashboard API Integration</td>
+            <td>1</td>
+            <td>8</td>
+            <td>High</td>
+            <td>Dashboard UI, APIs</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Critical Event Sieve API Integration</td>
+            <td>1</td>
+            <td>8</td>
+            <td>High</td>
+            <td>CES UI, APIs</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Simulink API Integration</td>
+            <td>1</td>
+            <td>8</td>
+            <td>High</td>
+            <td>Simulink UI, APIs</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Scene Generation API Integration</td>
+            <td>1</td>
+            <td>8</td>
+            <td>High</td>
+            <td>Scene UI, APIs</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Scenario Generation API Integration</td>
+            <td>1</td>
+            <td>8</td>
+            <td>High</td>
+            <td>Scenario UI, APIs</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Drive Lab API Integration</td>
+            <td>1</td>
+            <td>8</td>
+            <td>High</td>
+            <td>Drive Lab UI, APIs</td>
+          </tr>
+          <tr class="medium-priority">
+            <td>File Management API Integration</td>
+            <td>0.5</td>
+            <td>4</td>
+            <td>Medium</td>
+            <td>File Viewer UI</td>
+          </tr>
+          <tr class="medium-priority">
+            <td>Real-time Features (WebSocket/SSE)</td>
+            <td>1.5</td>
+            <td>12</td>
+            <td>Medium</td>
+            <td>All Integrations</td>
+          </tr>
+          <tr class="total-row">
+            <td><strong>Backend Integration Total</strong></td>
+            <td><strong>9</strong></td>
+            <td><strong>72</strong></td>
+            <td colspan="2"><strong>1.8 weeks</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Phase 3: Testing & Stabilization</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 40%">Task</th>
+            <th style="width: 15%">Days</th>
+            <th style="width: 15%">Hours</th>
+            <th style="width: 15%">Priority</th>
+            <th style="width: 15%">Dependencies</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="phase-header">
+            <td colspan="5">🛡️ Error Handling & Validation</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Global Error Boundary Implementation</td>
+            <td>1</td>
+            <td>8</td>
+            <td>High</td>
+            <td>All Components</td>
+          </tr>
+          <tr class="high-priority">
+            <td>API Error Handling & Retry Logic</td>
+            <td>1</td>
+            <td>8</td>
+            <td>High</td>
+            <td>API Integration</td>
+          </tr>
+          <tr class="medium-priority">
+            <td>Form Validation & User Feedback</td>
+            <td>1</td>
+            <td>8</td>
+            <td>Medium</td>
+            <td>All Forms</td>
+          </tr>
+          <tr class="medium-priority">
+            <td>Loading States & UX Improvements</td>
+            <td>1</td>
+            <td>8</td>
+            <td>Medium</td>
+            <td>All Features</td>
+          </tr>
+          <tr class="phase-header">
+            <td colspan="5">🔧 Electron Integration</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Main Process Updates & Window Management</td>
+            <td>1</td>
+            <td>8</td>
+            <td>High</td>
+            <td>Frontend Complete</td>
+          </tr>
+          <tr class="medium-priority">
+            <td>IPC Communication Setup</td>
+            <td>0.5</td>
+            <td>4</td>
+            <td>Medium</td>
+            <td>Main Process</td>
+          </tr>
+          <tr class="medium-priority">
+            <td>File System Integration</td>
+            <td>0.5</td>
+            <td>4</td>
+            <td>Medium</td>
+            <td>IPC Setup</td>
+          </tr>
+          <tr class="phase-header">
+            <td colspan="5">🧪 Testing</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Unit Testing (Components & Services)</td>
+            <td>2</td>
+            <td>16</td>
+            <td>High</td>
+            <td>All Features</td>
+          </tr>
+          <tr class="high-priority">
+            <td>Integration Testing</td>
+            <td>1.5</td>
+            <td>12</td>
+            <td>High</td>
+            <td>API Integration</td>
+          </tr>
+          <tr class="medium-priority">
+            <td>End-to-End Testing</td>
+            <td>1</td>
+            <td>8</td>
+            <td>Medium</td>
+            <td>Complete App</td>
+          </tr>
+          <tr class="phase-header">
+            <td colspan="5">🚀 Final Polish & Deployment</td>
+          </tr>
+          <tr class="medium-priority">
+            <td>Bug Fixes & Issues Resolution</td>
+            <td>2</td>
+            <td>16</td>
+            <td>Medium</td>
+            <td>Testing Results</td>
+          </tr>
+          <tr class="medium-priority">
+            <td>Performance Optimization</td>
+            <td>1</td>
+            <td>8</td>
+            <td>Medium</td>
+            <td>Complete App</td>
+          </tr>
+          <tr class="low-priority">
+            <td>App Packaging & Build Setup</td>
+            <td>0.5</td>
+            <td>4</td>
+            <td>Low</td>
+            <td>Final Testing</td>
+          </tr>
+          <tr class="total-row">
+            <td><strong>Testing & Stabilization Total</strong></td>
+            <td><strong>12</strong></td>
+            <td><strong>96</strong></td>
+            <td colspan="2"><strong>2.4 weeks</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>📊 Final Project Summary</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 30%">Phase</th>
+            <th style="width: 15%">Duration (Days)</th>
+            <th style="width: 15%">Hours</th>
+            <th style="width: 20%">Percentage</th>
+            <th style="width: 20%">Timeline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="high-priority">
+            <td><strong>Frontend Development</strong></td>
+            <td>25</td>
+            <td>200</td>
+            <td>54%</td>
+            <td>Weeks 1-5</td>
+          </tr>
+          <tr class="medium-priority">
+            <td><strong>Backend Integration</strong></td>
+            <td>9</td>
+            <td>72</td>
+            <td>20%</td>
+            <td>Weeks 5.5-7</td>
+          </tr>
+          <tr class="low-priority">
+            <td><strong>Testing & Stabilization</strong></td>
+            <td>12</td>
+            <td>96</td>
+            <td>26%</td>
+            <td>Weeks 7-9</td>
+          </tr>
+          <tr class="total-row">
+            <td><strong>TOTAL PROJECT</strong></td>
+            <td><strong>46</strong></td>
+            <td><strong>368</strong></td>
+            <td><strong>100%</strong></td>
+            <td><strong>9.2 weeks</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="summary-box">
+        <h3>🎯 Key Recommendations</h3>
+        <ul>
+          <li>
+            <strong>Conservative Estimate:</strong> 46 working days (9-10 weeks)
+          </li>
+          <li>
+            <strong>Buffer Time:</strong> Add 10-15% for unexpected issues
+          </li>
+          <li>
+            <strong>Client Presentation:</strong> Present 10-week timeline
+          </li>
+          <li><strong>Milestone Reviews:</strong> Weekly progress meetings</li>
+          <li>
+            <strong>Risk Mitigation:</strong> Frontend-first approach reduces
+            integration risks
+          </li>
+        </ul>
+      </div>
+
+      <button class="download-btn" onclick="downloadAsCSV()">
+        📥 Download as CSV
+      </button>
+      <button class="download-btn" onclick="printTable()">
+        🖨️ Print Estimate
+      </button>
+    </div>
+
+    <script>
+      function downloadAsCSV() {
+        let csv = "Phase,Task,Days,Hours,Priority,Dependencies\n";
+
+        // Frontend Phase
+        csv += "Frontend,Project Setup & Configuration,1,8,High,None\n";
+        csv +=
+          "Frontend,New Design System Implementation,2,16,High,Design Assets\n";
+        csv += "Frontend,Core Layout Components,2,16,High,Design System\n";
+        csv +=
+          "Frontend,Context Management Refactoring,1,8,Medium,Core Components\n";
+        csv +=
+          "Frontend,Dashboard Page Complete UI,3,24,High,Layout Components\n";
+        csv += "Frontend,Critical Event Sieve UI,2,16,High,Dashboard\n";
+        csv += "Frontend,Simulink Interface UI,3,24,High,Core Components\n";
+        csv += "Frontend,Scene Generation UI,2,16,High,Core Components\n";
+        csv += "Frontend,Scenario Generation UI,3,24,High,Scene Generation\n";
+        csv += "Frontend,Drive Lab Interface UI,3,24,High,Core Components\n";
+        csv += "Frontend,Cyber Security Page UI,2,16,Medium,Core Components\n";
+        csv +=
+          "Frontend,Functional Safety Page UI,2,16,Medium,Core Components\n";
+        csv += "Frontend,File Viewer UI,1,8,Low,Core Components\n";
+        csv += "Frontend,Additional Pages,1,8,Low,Core Components\n";
+        csv += "Frontend,Modal Components,1,8,Medium,Core Components\n";
+        csv += "Frontend,ChatBot Integration,1,8,Medium,Core Layout\n";
+        csv += "Frontend,Responsive Design,2,16,Medium,All Components\n";
+
+        // Backend Integration
+        csv += "Backend,API Service Layer,1,8,High,Backend APIs\n";
+        csv += "Backend,Authentication System,1,8,High,API Service\n";
+        csv += "Backend,Data Models & Interfaces,1,8,High,API Documentation\n";
+        csv += "Backend,Dashboard API Integration,1,8,High,Dashboard UI\n";
+        csv += "Backend,CES API Integration,1,8,High,CES UI\n";
+        csv += "Backend,Simulink API Integration,1,8,High,Simulink UI\n";
+        csv += "Backend,Scene Generation API,1,8,High,Scene UI\n";
+        csv += "Backend,Scenario Generation API,1,8,High,Scenario UI\n";
+        csv += "Backend,Drive Lab API,1,8,High,Drive Lab UI\n";
+        csv += "Backend,File Management API,0.5,4,Medium,File Viewer UI\n";
+        csv += "Backend,Real-time Features,1.5,12,Medium,All Integrations\n";
+
+        // Testing & Stabilization
+        csv += "Testing,Global Error Boundary,1,8,High,All Components\n";
+        csv += "Testing,API Error Handling,1,8,High,API Integration\n";
+        csv += "Testing,Form Validation,1,8,Medium,All Forms\n";
+        csv += "Testing,Loading States & UX,1,8,Medium,All Features\n";
+        csv += "Testing,Main Process Updates,1,8,High,Frontend Complete\n";
+        csv += "Testing,IPC Communication,0.5,4,Medium,Main Process\n";
+        csv += "Testing,File System Integration,0.5,4,Medium,IPC Setup\n";
+        csv += "Testing,Unit Testing,2,16,High,All Features\n";
+        csv += "Testing,Integration Testing,1.5,12,High,API Integration\n";
+        csv += "Testing,End-to-End Testing,1,8,Medium,Complete App\n";
+        csv += "Testing,Bug Fixes,2,16,Medium,Testing Results\n";
+        csv += "Testing,Performance Optimization,1,8,Medium,Complete App\n";
+        csv += "Testing,App Packaging,0.5,4,Low,Final Testing\n";
+
+        const blob = new Blob([csv], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.setAttribute("hidden", "");
+        a.setAttribute("href", url);
+        a.setAttribute("download", "IBEX_Simulator_Estimate.csv");
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      function printTable() {
+        window.print();
+      }
+    </script>
+  </body>
+</html>
