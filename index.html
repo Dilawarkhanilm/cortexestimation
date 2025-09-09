@@ -1,623 +1,1042 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IBEX Simulator Project Estimate</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBEX Simulator - Project Development Estimate</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background-color: #f5f5f5;
-      }
-      .container {
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
-      h1 {
-        color: #2c3e50;
-        text-align: center;
-        margin-bottom: 30px;
-      }
-      h2 {
-        color: #34495e;
-        border-bottom: 2px solid #3498db;
-        padding-bottom: 5px;
-        margin-top: 30px;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 30px;
-        background: white;
-      }
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 12px;
-        text-align: left;
-      }
-      th {
-        background-color: #3498db;
-        color: white;
-        font-weight: bold;
-      }
-      .phase-header {
-        background-color: #e8f4f8;
-        font-weight: bold;
-        color: #2c3e50;
-      }
-      .total-row {
-        background-color: #f8f9fa;
-        font-weight: bold;
-      }
-      .high-priority {
-        background-color: #ffebee;
-      }
-      .medium-priority {
-        background-color: #fff3e0;
-      }
-      .low-priority {
-        background-color: #f1f8e9;
-      }
-      .summary-box {
-        background: #e8f4f8;
-        padding: 15px;
-        border-radius: 5px;
-        margin: 20px 0;
-      }
-      .download-btn {
-        background: #27ae60;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin: 10px 0;
-      }
-      .download-btn:hover {
-        background: #219a52;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            background: #f8f9fa;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+            border-left: 5px solid #3498db;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .summary-card .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .summary-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .summary-card .label {
+            color: #7f8c8d;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .content-section {
+            padding: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #ecf0f1;
+        }
+
+        .section-header h2 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-left: 15px;
+        }
+
+        .section-icon {
+            font-size: 2rem;
+            color: #3498db;
+        }
+
+        .phase-container {
+            margin-bottom: 40px;
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .phase-header {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 20px 30px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .phase-stats {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+        }
+
+        .phase-stat {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        .tasks-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tasks-table th {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 600;
+            color: #2c3e50;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .tasks-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #ecf0f1;
+            vertical-align: middle;
+        }
+
+        .tasks-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .priority-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-high {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+
+        .priority-medium {
+            background: #fff3e0;
+            color: #ef6c00;
+            border: 1px solid #ffcc02;
+        }
+
+        .priority-low {
+            background: #f1f8e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+
+        .duration-badge {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .timeline-section {
+            background: #f8f9fa;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            border-radius: 2px;
+            z-index: 0;
+        }
+
+        .timeline-item {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            min-width: 200px;
+            border: 3px solid #3498db;
+        }
+
+        .timeline-week {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .timeline-phase {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #27ae60 0%, #219a52 100%);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+            box-shadow: 0 5px 15px rgba(23, 162, 184, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .recommendations {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #28a745;
+        }
+
+        .recommendations h3 {
+            color: #155724;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .recommendations ul {
+            list-style: none;
+        }
+
+        .recommendations li {
+            padding: 10px 0;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+        }
+
+        .recommendations li::before {
+            content: '✅';
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .risk-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #e74c3c;
+        }
+
+        .risk-card h4 {
+            color: #c0392b;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .summary-cards {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .content-section {
+                padding: 20px;
+            }
+            
+            .timeline {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .timeline::before {
+                display: none;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tasks-table {
+                font-size: 0.9rem;
+            }
+            
+            .tasks-table th,
+            .tasks-table td {
+                padding: 10px;
+            }
+        }
+
+        .loading-animation {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>🚗 IBEX Simulator - Project Development Estimate</h1>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="header-content">
+                <h1>🚗 IBEX Simulator</h1>
+                <p class="subtitle">Professional Project Development Estimate</p>
+            </div>
+        </div>
 
-      <div class="summary-box">
-        <h3>📋 Project Summary</h3>
-        <ul>
-          <li>
-            <strong>Total Duration:</strong> 35-40 working days (7-8 weeks)
-          </li>
-          <li><strong>Daily Hours:</strong> 8 hours per day</li>
-          <li><strong>Total Hours:</strong> 280-320 hours</li>
-          <li>
-            <strong>Approach:</strong> Frontend First → Backend Integration →
-            Testing
-          </li>
-        </ul>
-      </div>
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+            <div class="summary-card">
+                <span class="icon">⏱️</span>
+                <div class="number">46</div>
+                <div class="label">Working Days</div>
+            </div>
+            <div class="summary-card">
+                <span class="icon">🕒</span>
+                <div class="number">368</div>
+                <div class="label">Total Hours</div>
+            </div>
+            <div class="summary-card">
+                <span class="icon">📅</span>
+                <div class="number">9-10</div>
+                <div class="label">Weeks Duration</div>
+            </div>
+            <div class="summary-card">
+                <span class="icon">⚡</span>
+                <div class="number">8</div>
+                <div class="label">Hours Per Day</div>
+            </div>
+        </div>
 
-      <h2>Phase 1: Frontend Development (Complete UI/UX)</h2>
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 40%">Task</th>
-            <th style="width: 15%">Days</th>
-            <th style="width: 15%">Hours</th>
-            <th style="width: 15%">Priority</th>
-            <th style="width: 15%">Dependencies</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="phase-header">
-            <td colspan="5">🏗️ Foundation & Setup</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Project Setup & Configuration</td>
-            <td>1</td>
-            <td>8</td>
-            <td>High</td>
-            <td>None</td>
-          </tr>
-          <tr class="high-priority">
-            <td>New Design System Implementation</td>
-            <td>2</td>
-            <td>16</td>
-            <td>High</td>
-            <td>Design Assets</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Core Layout Components (TitleBar, Tabs)</td>
-            <td>2</td>
-            <td>16</td>
-            <td>High</td>
-            <td>Design System</td>
-          </tr>
-          <tr class="medium-priority">
-            <td>Context Management Refactoring</td>
-            <td>1</td>
-            <td>8</td>
-            <td>Medium</td>
-            <td>Core Components</td>
-          </tr>
-          <tr class="phase-header">
-            <td colspan="5">📄 Feature Pages Development</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Dashboard Page (Complete UI)</td>
-            <td>3</td>
-            <td>24</td>
-            <td>High</td>
-            <td>Layout Components</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Critical Event Sieve UI</td>
-            <td>2</td>
-            <td>16</td>
-            <td>High</td>
-            <td>Dashboard</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Simulink Interface UI</td>
-            <td>3</td>
-            <td>24</td>
-            <td>High</td>
-            <td>Core Components</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Scene Generation UI</td>
-            <td>2</td>
-            <td>16</td>
-            <td>High</td>
-            <td>Core Components</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Scenario Generation UI</td>
-            <td>3</td>
-            <td>24</td>
-            <td>High</td>
-            <td>Scene Generation</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Drive Lab Interface UI</td>
-            <td>3</td>
-            <td>24</td>
-            <td>High</td>
-            <td>Core Components</td>
-          </tr>
-          <tr class="medium-priority">
-            <td>Cyber Security Page UI</td>
-            <td>2</td>
-            <td>16</td>
-            <td>Medium</td>
-            <td>Core Components</td>
-          </tr>
-          <tr class="medium-priority">
-            <td>Functional Safety Page UI</td>
-            <td>2</td>
-            <td>16</td>
-            <td>Medium</td>
-            <td>Core Components</td>
-          </tr>
-          <tr class="low-priority">
-            <td>File Viewer UI</td>
-            <td>1</td>
-            <td>8</td>
-            <td>Low</td>
-            <td>Core Components</td>
-          </tr>
-          <tr class="low-priority">
-            <td>Additional Pages (About, Services, Contact)</td>
-            <td>1</td>
-            <td>8</td>
-            <td>Low</td>
-            <td>Core Components</td>
-          </tr>
-          <tr class="phase-header">
-            <td colspan="5">🎨 UI/UX Polish & Components</td>
-          </tr>
-          <tr class="medium-priority">
-            <td>Modal Components (Profile, Custom Popup)</td>
-            <td>1</td>
-            <td>8</td>
-            <td>Medium</td>
-            <td>Core Components</td>
-          </tr>
-          <tr class="medium-priority">
-            <td>ChatBot Integration</td>
-            <td>1</td>
-            <td>8</td>
-            <td>Medium</td>
-            <td>Core Layout</td>
-          </tr>
-          <tr class="medium-priority">
-            <td>Responsive Design Implementation</td>
-            <td>2</td>
-            <td>16</td>
-            <td>Medium</td>
-            <td>All Components</td>
-          </tr>
-          <tr class="total-row">
-            <td><strong>Frontend Phase Total</strong></td>
-            <td><strong>25</strong></td>
-            <td><strong>200</strong></td>
-            <td colspan="2"><strong>5 weeks</strong></td>
-          </tr>
-        </tbody>
-      </table>
+        <!-- Timeline Section -->
+        <div class="timeline-section">
+            <div class="section-header">
+                <span class="section-icon">📈</span>
+                <h2>Project Timeline</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-week">Weeks 1-5</div>
+                    <div class="timeline-phase">Frontend Development</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-week">Weeks 5-7</div>
+                    <div class="timeline-phase">Backend Integration</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-week">Weeks 7-10</div>
+                    <div class="timeline-phase">Testing & Stabilization</div>
+                </div>
+            </div>
+        </div>
 
-      <h2>Phase 2: Backend Integration</h2>
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 40%">Task</th>
-            <th style="width: 15%">Days</th>
-            <th style="width: 15%">Hours</th>
-            <th style="width: 15%">Priority</th>
-            <th style="width: 15%">Dependencies</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="phase-header">
-            <td colspan="5">🔌 API Integration Setup</td>
-          </tr>
-          <tr class="high-priority">
-            <td>API Service Layer Creation</td>
-            <td>1</td>
-            <td>8</td>
-            <td>High</td>
-            <td>Backend APIs</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Authentication System Integration</td>
-            <td>1</td>
-            <td>8</td>
-            <td>High</td>
-            <td>API Service</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Data Models & TypeScript Interfaces</td>
-            <td>1</td>
-            <td>8</td>
-            <td>High</td>
-            <td>API Documentation</td>
-          </tr>
-          <tr class="phase-header">
-            <td colspan="5">🔗 Feature API Connections</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Dashboard API Integration</td>
-            <td>1</td>
-            <td>8</td>
-            <td>High</td>
-            <td>Dashboard UI, APIs</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Critical Event Sieve API Integration</td>
-            <td>1</td>
-            <td>8</td>
-            <td>High</td>
-            <td>CES UI, APIs</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Simulink API Integration</td>
-            <td>1</td>
-            <td>8</td>
-            <td>High</td>
-            <td>Simulink UI, APIs</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Scene Generation API Integration</td>
-            <td>1</td>
-            <td>8</td>
-            <td>High</td>
-            <td>Scene UI, APIs</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Scenario Generation API Integration</td>
-            <td>1</td>
-            <td>8</td>
-            <td>High</td>
-            <td>Scenario UI, APIs</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Drive Lab API Integration</td>
-            <td>1</td>
-            <td>8</td>
-            <td>High</td>
-            <td>Drive Lab UI, APIs</td>
-          </tr>
-          <tr class="medium-priority">
-            <td>File Management API Integration</td>
-            <td>0.5</td>
-            <td>4</td>
-            <td>Medium</td>
-            <td>File Viewer UI</td>
-          </tr>
-          <tr class="medium-priority">
-            <td>Real-time Features (WebSocket/SSE)</td>
-            <td>1.5</td>
-            <td>12</td>
-            <td>Medium</td>
-            <td>All Integrations</td>
-          </tr>
-          <tr class="total-row">
-            <td><strong>Backend Integration Total</strong></td>
-            <td><strong>9</strong></td>
-            <td><strong>72</strong></td>
-            <td colspan="2"><strong>1.8 weeks</strong></td>
-          </tr>
-        </tbody>
-      </table>
+        <!-- Phase 1: Frontend Development -->
+        <div class="content-section">
+            <div class="section-header">
+                <span class="section-icon">🎨</span>
+                <h2>Phase 1: Frontend Development</h2>
+            </div>
+            
+            <div class="phase-container">
+                <div class="phase-header">
+                    <span>🏗️ Foundation & Setup</span>
+                    <div class="phase-stats">
+                        <span class="phase-stat">6 Days</span>
+                        <span class="phase-stat">48 Hours</span>
+                    </div>
+                </div>
+                <table class="tasks-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 35%">Task Description</th>
+                            <th style="width: 15%">Duration</th>
+                            <th style="width: 15%">Hours</th>
+                            <th style="width: 15%">Priority</th>
+                            <th style="width: 20%">Dependencies</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Project Setup & Configuration</strong><br><small>Environment setup, dependencies, build configuration</small></td>
+                            <td><span class="duration-badge">⏱️ 1 Day</span></td>
+                            <td><span class="duration-badge">🕐 8h</span></td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td><strong>New Design System Implementation</strong><br><small>Modern UI components, theme system</small></td>
+                            <td><span class="duration-badge">⏱️ 2 Days</span></td>
+                            <td><span class="duration-badge">🕐 16h</span></td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>Design Assets</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Core Layout Components</strong><br><small>TitleBar, TabsContainer, Navigation</small></td>
+                            <td><span class="duration-badge">⏱️ 2 Days</span></td>
+                            <td><span class="duration-badge">🕐 16h</span></td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>Design System</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Context Management Refactoring</strong><br><small>State management, data flow optimization</small></td>
+                            <td><span class="duration-badge">⏱️ 1 Day</span></td>
+                            <td><span class="duration-badge">🕐 8h</span></td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                            <td>Core Components</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-      <h2>Phase 3: Testing & Stabilization</h2>
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 40%">Task</th>
-            <th style="width: 15%">Days</th>
-            <th style="width: 15%">Hours</th>
-            <th style="width: 15%">Priority</th>
-            <th style="width: 15%">Dependencies</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="phase-header">
-            <td colspan="5">🛡️ Error Handling & Validation</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Global Error Boundary Implementation</td>
-            <td>1</td>
-            <td>8</td>
-            <td>High</td>
-            <td>All Components</td>
-          </tr>
-          <tr class="high-priority">
-            <td>API Error Handling & Retry Logic</td>
-            <td>1</td>
-            <td>8</td>
-            <td>High</td>
-            <td>API Integration</td>
-          </tr>
-          <tr class="medium-priority">
-            <td>Form Validation & User Feedback</td>
-            <td>1</td>
-            <td>8</td>
-            <td>Medium</td>
-            <td>All Forms</td>
-          </tr>
-          <tr class="medium-priority">
-            <td>Loading States & UX Improvements</td>
-            <td>1</td>
-            <td>8</td>
-            <td>Medium</td>
-            <td>All Features</td>
-          </tr>
-          <tr class="phase-header">
-            <td colspan="5">🔧 Electron Integration</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Main Process Updates & Window Management</td>
-            <td>1</td>
-            <td>8</td>
-            <td>High</td>
-            <td>Frontend Complete</td>
-          </tr>
-          <tr class="medium-priority">
-            <td>IPC Communication Setup</td>
-            <td>0.5</td>
-            <td>4</td>
-            <td>Medium</td>
-            <td>Main Process</td>
-          </tr>
-          <tr class="medium-priority">
-            <td>File System Integration</td>
-            <td>0.5</td>
-            <td>4</td>
-            <td>Medium</td>
-            <td>IPC Setup</td>
-          </tr>
-          <tr class="phase-header">
-            <td colspan="5">🧪 Testing</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Unit Testing (Components & Services)</td>
-            <td>2</td>
-            <td>16</td>
-            <td>High</td>
-            <td>All Features</td>
-          </tr>
-          <tr class="high-priority">
-            <td>Integration Testing</td>
-            <td>1.5</td>
-            <td>12</td>
-            <td>High</td>
-            <td>API Integration</td>
-          </tr>
-          <tr class="medium-priority">
-            <td>End-to-End Testing</td>
-            <td>1</td>
-            <td>8</td>
-            <td>Medium</td>
-            <td>Complete App</td>
-          </tr>
-          <tr class="phase-header">
-            <td colspan="5">🚀 Final Polish & Deployment</td>
-          </tr>
-          <tr class="medium-priority">
-            <td>Bug Fixes & Issues Resolution</td>
-            <td>2</td>
-            <td>16</td>
-            <td>Medium</td>
-            <td>Testing Results</td>
-          </tr>
-          <tr class="medium-priority">
-            <td>Performance Optimization</td>
-            <td>1</td>
-            <td>8</td>
-            <td>Medium</td>
-            <td>Complete App</td>
-          </tr>
-          <tr class="low-priority">
-            <td>App Packaging & Build Setup</td>
-            <td>0.5</td>
-            <td>4</td>
-            <td>Low</td>
-            <td>Final Testing</td>
-          </tr>
-          <tr class="total-row">
-            <td><strong>Testing & Stabilization Total</strong></td>
-            <td><strong>12</strong></td>
-            <td><strong>96</strong></td>
-            <td colspan="2"><strong>2.4 weeks</strong></td>
-          </tr>
-        </tbody>
-      </table>
+            <div class="phase-container">
+                <div class="phase-header">
+                    <span>📄 Feature Pages Development</span>
+                    <div class="phase-stats">
+                        <span class="phase-stat">16 Days</span>
+                        <span class="phase-stat">128 Hours</span>
+                    </div>
+                </div>
+                <table class="tasks-table">
+                    <tbody>
+                        <tr>
+                            <td><strong>Dashboard Page (Complete UI)</strong><br><small>Project management, analytics, overview</small></td>
+                            <td><span class="duration-badge">⏱️ 3 Days</span></td>
+                            <td><span class="duration-badge">🕐 24h</span></td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>Layout Components</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Critical Event Sieve UI</strong><br><small>Data visualization, analysis tools</small></td>
+                            <td><span class="duration-badge">⏱️ 2 Days</span></td>
+                            <td><span class="duration-badge">🕐 16h</span></td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>Dashboard</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Simulink Interface UI</strong><br><small>Complex simulation controls, visualization</small></td>
+                            <td><span class="duration-badge">⏱️ 3 Days</span></td>
+                            <td><span class="duration-badge">🕐 24h</span></td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>Core Components</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Scene Generation UI</strong><br><small>3D/2D scene creation tools</small></td>
+                            <td><span class="duration-badge">⏱️ 2 Days</span></td>
+                            <td><span class="duration-badge">🕐 16h</span></td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>Core Components</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Scenario Generation UI</strong><br><small>Scenario builder, configuration panels</small></td>
+                            <td><span class="duration-badge">⏱️ 3 Days</span></td>
+                            <td><span class="duration-badge">🕐 24h</span></td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>Scene Generation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Drive Lab Interface UI</strong><br><small>Vehicle simulation, testing interface</small></td>
+                            <td><span class="duration-badge">⏱️ 3 Days</span></td>
+                            <td><span class="duration-badge">🕐 24h</span></td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>Core Components</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-      <h2>📊 Final Project Summary</h2>
-      <table>
-        <thead>
-          <tr>
-            <th style="width: 30%">Phase</th>
-            <th style="width: 15%">Duration (Days)</th>
-            <th style="width: 15%">Hours</th>
-            <th style="width: 20%">Percentage</th>
-            <th style="width: 20%">Timeline</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="high-priority">
-            <td><strong>Frontend Development</strong></td>
-            <td>25</td>
-            <td>200</td>
-            <td>54%</td>
-            <td>Weeks 1-5</td>
-          </tr>
-          <tr class="medium-priority">
-            <td><strong>Backend Integration</strong></td>
-            <td>9</td>
-            <td>72</td>
-            <td>20%</td>
-            <td>Weeks 5.5-7</td>
-          </tr>
-          <tr class="low-priority">
-            <td><strong>Testing & Stabilization</strong></td>
-            <td>12</td>
-            <td>96</td>
-            <td>26%</td>
-            <td>Weeks 7-9</td>
-          </tr>
-          <tr class="total-row">
-            <td><strong>TOTAL PROJECT</strong></td>
-            <td><strong>46</strong></td>
-            <td><strong>368</strong></td>
-            <td><strong>100%</strong></td>
-            <td><strong>9.2 weeks</strong></td>
-          </tr>
-        </tbody>
-      </table>
+            <div class="phase-container">
+                <div class="phase-header">
+                    <span>🎨 UI/UX Polish & Additional Features</span>
+                    <div class="phase-stats">
+                        <span class="phase-stat">3 Days</span>
+                        <span class="phase-stat">24 Hours</span>
+                    </div>
+                </div>
+                <table class="tasks-table">
+                    <tbody>
+                        <tr>
+                            <td><strong>Secondary Pages UI</strong><br><small>Cyber Security, Functional Safety, File Viewer</small></td>
+                            <td><span class="duration-badge">⏱️ 5 Days</span></td>
+                            <td><span class="duration-badge">🕐 40h</span></td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                            <td>Core Components</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Modal & Popup Components</strong><br><small>Profile modal, custom popups, dialogs</small></td>
+                            <td><span class="duration-badge">⏱️ 1 Day</span></td>
+                            <td><span class="duration-badge">🕐 8h</span></td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                            <td>Core Components</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ChatBot Integration</strong><br><small>AI assistant interface, chat functionality</small></td>
+                            <td><span class="duration-badge">⏱️ 1 Day</span></td>
+                            <td><span class="duration-badge">🕐 8h</span></td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                            <td>Core Layout</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Responsive Design Implementation</strong><br><small>Mobile/tablet compatibility, fluid layouts</small></td>
+                            <td><span class="duration-badge">⏱️ 2 Days</span></td>
+                            <td><span class="duration-badge">🕐 16h</span></td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                            <td>All Components</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-      <div class="summary-box">
-        <h3>🎯 Key Recommendations</h3>
-        <ul>
-          <li>
-            <strong>Conservative Estimate:</strong> 46 working days (9-10 weeks)
-          </li>
-          <li>
-            <strong>Buffer Time:</strong> Add 10-15% for unexpected issues
-          </li>
-          <li>
-            <strong>Client Presentation:</strong> Present 10-week timeline
-          </li>
-          <li><strong>Milestone Reviews:</strong> Weekly progress meetings</li>
-          <li>
-            <strong>Risk Mitigation:</strong> Frontend-first approach reduces
-            integration risks
-          </li>
-        </ul>
-      </div>
+            <div style="background: #e8f5e8; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <h4 style="color: #2d5a2d; margin-bottom: 10px;">📊 Frontend Phase Summary</h4>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong>Total Duration: 25 Days (200 Hours)</strong><br>
+                        <small>Approximately 5 weeks of development</small>
+                    </div>
+                    <div class="progress-bar" style="width: 200px;">
+                        <div class="progress-fill" style="width: 54%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-      <button class="download-btn" onclick="downloadAsCSV()">
-        📥 Download as CSV
-      </button>
-      <button class="download-btn" onclick="printTable()">
-        🖨️ Print Estimate
-      </button>
+        <!-- Phase 2: Backend Integration -->
+        <div class="content-section">
+            <div class="section-header">
+                <span class="section-icon">🔌</span>
+                <h2>Phase 2: Backend Integration</h2>
+            </div>
+
+            <div class="phase-container">
+                <div class="phase-header">
+                    <span>🔗 API Integration & Data Management</span>
+                    <div class="phase-stats">
+                        <span class="phase-stat">9 Days</span>
+                        <span class="phase-stat">72 Hours</span>
+                    </div>
+                </div>
+                <table class="tasks-table">
+                    <tbody>
+                        <tr>
+                            <td><strong>API Service Layer Creation</strong><br><small>HTTP client, interceptors, error handling</small></td>
+                            <td><span class="duration-badge">⏱️ 1 Day</span></td>
+                            <td><span class="duration-badge">🕐 8h</span></td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>Backend APIs Available</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Authentication System</strong><br><small>Login/logout, session management, security</small></td>
+                            <td><span class="duration-badge">⏱️ 1 Day</span></td>
+                            <td><span class="duration-badge">🕐 8h</span></td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>API Service Layer</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data Models & TypeScript Interfaces</strong><br><small>Type definitions, data validation</small></td>
+                            <td><span class="duration-badge">⏱️ 1 Day</span></td>
+                            <td><span class="duration-badge">🕐 8h</span></td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>API Documentation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Feature API Integrations</strong><br><small>Dashboard, CES, Simulink, Scene/Scenario Generation, Drive Lab</small></td>
+                            <td><span class="duration-badge">⏱️ 5 Days</span></td>
+                            <td><span class="duration-badge">🕐 40h</span></td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>Frontend UI Complete</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Real-time Features</strong><br><small>WebSocket connections, live updates</small></td>
+                            <td><span class="duration-badge">⏱️ 1.5 Days</span></td>
+                            <td><span class="duration-badge">🕐 12h</span></td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                            <td>All API Integrations</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="background: #fff3e0; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <h4 style="color: #8a5600; margin-bottom: 10px;">🔌 Backend Phase Summary</h4>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong>Total Duration: 9 Days (72 Hours)</strong><br>
+                        <small>Approximately 1.8 weeks of integration</small>
+                    </div>
+                    <div class="progress-bar" style="width: 200px;">
+                        <div class="progress-fill" style="width: 20%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 3: Testing & Stabilization -->
+        <div class="content-section">
+            <div class="section-header">
+                <span class="section-icon">🧪</span>
+                <h2>Phase 3: Testing & Stabilization</h2>
+            </div>
+
+            <div class="phase-container">
+                <div class="phase-header">
+                    <span>🛡️ Quality Assurance & Deployment</span>
+                    <div class="phase-stats">
+                        <span class="phase-stat">12 Days</span>
+                        <span class="phase-stat">96 Hours</span>
+                    </div>
+                </div>
+                <table class="tasks-table">
+                    <tbody>
+                        <tr>
+                            <td><strong>Error Handling & Validation</strong><br><small>Global error boundaries, form validation, UX improvements</small></td>
+                            <td><span class="duration-badge">⏱️ 4 Days</span></td>
+                            <td><span class="duration-badge">🕐 32h</span></td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>Complete Application</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Electron Integration</strong><br><small>Native features, file system, IPC communication</small></td>
+                            <td><span class="duration-badge">⏱️ 2 Days</span></td>
+                            <td><span class="duration-badge">🕐 16h</span></td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>Frontend Complete</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Comprehensive Testing</strong><br><small>Unit tests, integration tests, end-to-end testing</small></td>
+                            <td><span class="duration-badge">⏱️ 4.5 Days</span></td>
+                            <td><span class="duration-badge">🕐 36h</span></td>
+                            <td><span class="priority-badge priority-high">High</span></td>
+                            <td>All Features Complete</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bug Fixes & Performance</strong><br><small>Issue resolution, optimization, final polish</small></td>
+                            <td><span class="duration-badge">⏱️ 3 Days</span></td>
+                            <td><span class="duration-badge">🕐 24h</span></td>
+                            <td><span class="priority-badge priority-medium">Medium</span></td>
+                            <td>Testing Results</td>
+                        </tr>
+                        <tr>
+                            <td><strong>App Packaging & Deployment</strong><br><small>Build setup, distribution preparation</small></td>
+                            <td><span class="duration-badge">⏱️ 0.5 Days</span></td>
+                            <td><span class="duration-badge">🕐 4h</span></td>
+                            <td><span class="priority-badge priority-low">Low</span></td>
+                            <td>Final Testing</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="background: #f1f8e9; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <h4 style="color: #2d5a2d; margin-bottom: 10px;">🧪 Testing Phase Summary</h4>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong>Total Duration: 12 Days (96 Hours)</strong><br>
+                        <small>Approximately 2.4 weeks of testing & stabilization</small>
+                    </div>
+                    <div class="progress-bar" style="width: 200px;">
+                        <div class="progress-fill" style="width: 26%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Project Summary -->
+        <div class="content-section">
+            <div class="section-header">
+                <span class="section-icon">📊</span>
+                <h2>Complete Project Summary</h2>
+            </div>
+
+            <div class="phase-container">
+                <div class="phase-header">
+                    <span>🎯 Final Breakdown & Timeline</span>
+                    <div class="phase-stats">
+                        <span class="phase-stat">46 Total Days</span>
+                        <span class="phase-stat">368 Total Hours</span>
+                    </div>
+                </div>
+                <table class="tasks-table">
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>Duration (Days)</th>
+                            <th>Hours</th>
+                            <th>Percentage</th>
+                            <th>Timeline</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #ffebee;">
+                            <td><strong>🎨 Frontend Development</strong></td>
+                            <td><span class="duration-badge">25 Days</span></td>
+                            <td><span class="duration-badge">200h</span></td>
+                            <td><strong>54%</strong></td>
+                            <td>Weeks 1-5</td>
+                        </tr>
+                        <tr style="background: #fff3e0;">
+                            <td><strong>🔌 Backend Integration</strong></td>
+                            <td><span class="duration-badge">9 Days</span></td>
+                            <td><span class="duration-badge">72h</span></td>
+                            <td><strong>20%</strong></td>
+                            <td>Weeks 5.5-7</td>
+                        </tr>
+                        <tr style="background: #f1f8e9;">
+                            <td><strong>🧪 Testing & Stabilization</strong></td>
+                            <td><span class="duration-badge">12 Days</span></td>
+                            <td><span class="duration-badge">96h</span></td>
+                            <td><strong>26%</strong></td>
+                            <td>Weeks 7-10</td>
+                        </tr>
+                        <tr style="background: #e3f2fd; font-size: 1.1rem;">
+                            <td><strong>📈 TOTAL PROJECT</strong></td>
+                            <td><span class="duration-badge" style="background: #1565c0; color: white;">46 Days</span></td>
+                            <td><span class="duration-badge" style="background: #1565c0; color: white;">368h</span></td>
+                            <td><strong>100%</strong></td>
+                            <td><strong>9-10 Weeks</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Professional Recommendations -->
+        <div class="recommendations">
+            <h3>🎯 Professional Recommendations</h3>
+            <ul>
+                <li><strong>Conservative Timeline:</strong> Present 10-week timeline to client (includes buffer)</li>
+                <li><strong>Milestone Reviews:</strong> Weekly progress meetings with stakeholders</li>
+                <li><strong>Risk Mitigation:</strong> Frontend-first approach reduces integration risks</li>
+                <li><strong>Quality Assurance:</strong> Dedicated testing phase ensures stability</li>
+                <li><strong>Client Communication:</strong> Regular demos and progress updates</li>
+                <li><strong>Documentation:</strong> Comprehensive technical documentation for maintenance</li>
+            </ul>
+        </div>
+
+        <!-- Risk Assessment -->
+        <div class="content-section">
+            <div class="section-header">
+                <span class="section-icon">⚠️</span>
+                <h2>Risk Assessment & Mitigation</h2>
+            </div>
+            <div class="risk-matrix">
+                <div class="risk-card">
+                    <h4>🔴 High Risk Items</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>• Complex simulation features integration</li>
+                        <li>• Third-party API dependencies</li>
+                        <li>• Performance with large datasets</li>
+                        <li><strong>Mitigation:</strong> Add 15-20% buffer time</li>
+                    </ul>
+                </div>
+                <div class="risk-card" style="border-color: #f39c12;">
+                    <h4 style="color: #d68910;">🟡 Medium Risk Items</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>• Cross-platform compatibility</li>
+                        <li>• Legacy code refactoring</li>
+                        <li>• Real-time feature stability</li>
+                        <li><strong>Mitigation:</strong> Comprehensive testing phase</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn btn-success" onclick="downloadAsCSV()">
+                📥 Download CSV Report
+            </button>
+            <button class="btn btn-primary" onclick="downloadAsPDF()">
+                📄 Generate PDF Report
+            </button>
+            <button class="btn btn-info" onclick="printEstimate()">
+                🖨️ Print Estimate
+            </button>
+            <button class="btn btn-primary" onclick="shareEstimate()">
+                📤 Share with Team
+            </button>
+        </div>
     </div>
 
     <script>
-      function downloadAsCSV() {
-        let csv = "Phase,Task,Days,Hours,Priority,Dependencies\n";
+        // Smooth animations on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.summary-card, .phase-container');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'all 0.6s ease';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 100);
+            });
+        });
 
-        // Frontend Phase
-        csv += "Frontend,Project Setup & Configuration,1,8,High,None\n";
-        csv +=
-          "Frontend,New Design System Implementation,2,16,High,Design Assets\n";
-        csv += "Frontend,Core Layout Components,2,16,High,Design System\n";
-        csv +=
-          "Frontend,Context Management Refactoring,1,8,Medium,Core Components\n";
-        csv +=
-          "Frontend,Dashboard Page Complete UI,3,24,High,Layout Components\n";
-        csv += "Frontend,Critical Event Sieve UI,2,16,High,Dashboard\n";
-        csv += "Frontend,Simulink Interface UI,3,24,High,Core Components\n";
-        csv += "Frontend,Scene Generation UI,2,16,High,Core Components\n";
-        csv += "Frontend,Scenario Generation UI,3,24,High,Scene Generation\n";
-        csv += "Frontend,Drive Lab Interface UI,3,24,High,Core Components\n";
-        csv += "Frontend,Cyber Security Page UI,2,16,Medium,Core Components\n";
-        csv +=
-          "Frontend,Functional Safety Page UI,2,16,Medium,Core Components\n";
-        csv += "Frontend,File Viewer UI,1,8,Low,Core Components\n";
-        csv += "Frontend,Additional Pages,1,8,Low,Core Components\n";
-        csv += "Frontend,Modal Components,1,8,Medium,Core Components\n";
-        csv += "Frontend,ChatBot Integration,1,8,Medium,Core Layout\n";
-        csv += "Frontend,Responsive Design,2,16,Medium,All Components\n";
+        function downloadAsCSV() {
+            const loadingBtn = document.createElement('div');
+            loadingBtn.innerHTML = '<div class="loading-animation"></div> Generating CSV...';
+            loadingBtn.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1000; display: flex; align-items: center; gap: 10px;';
+            document.body.appendChild(loadingBtn);
 
-        // Backend Integration
-        csv += "Backend,API Service Layer,1,8,High,Backend APIs\n";
-        csv += "Backend,Authentication System,1,8,High,API Service\n";
-        csv += "Backend,Data Models & Interfaces,1,8,High,API Documentation\n";
-        csv += "Backend,Dashboard API Integration,1,8,High,Dashboard UI\n";
-        csv += "Backend,CES API Integration,1,8,High,CES UI\n";
-        csv += "Backend,Simulink API Integration,1,8,High,Simulink UI\n";
-        csv += "Backend,Scene Generation API,1,8,High,Scene UI\n";
-        csv += "Backend,Scenario Generation API,1,8,High,Scenario UI\n";
-        csv += "Backend,Drive Lab API,1,8,High,Drive Lab UI\n";
-        csv += "Backend,File Management API,0.5,4,Medium,File Viewer UI\n";
-        csv += "Backend,Real-time Features,1.5,12,Medium,All Integrations\n";
+            setTimeout(() => {
+                let csv = 'Phase,Task,Days,Hours,Priority,Dependencies,Description\n';
+                
+                // Frontend Phase
+                csv += 'Frontend,Project Setup & Configuration,1,8,High,None,"Environment setup, dependencies, build configuration"\n';
+                csv += 'Frontend,New Design System Implementation,2,16,High,Design Assets,"Modern UI components, theme system"\n';
+                csv += 'Frontend,Core Layout Components,2,16,High,Design System,"TitleBar, TabsContainer, Navigation"\n';
+                csv += 'Frontend,Context Management Refactoring,1,8,Medium,Core Components,"State management, data flow optimization"\n';
+                csv += 'Frontend,Dashboard Page Complete UI,3,24,High,Layout Components,"Project management, analytics, overview"\n';
+                csv += 'Frontend,Critical Event Sieve UI,2,16,High,Dashboard,"Data visualization, analysis tools"\n';
+                csv += 'Frontend,Simulink Interface UI,3,24,High,Core Components,"Complex simulation controls, visualization"\n';
+                csv += 'Frontend,Scene Generation UI,2,16,High,Core Components,"3D/2D scene creation tools"\n';
+                csv += 'Frontend,Scenario Generation UI,3,24,High,Scene Generation,"Scenario builder, configuration panels"\n';
+                csv += 'Frontend,Drive Lab Interface UI,3,24,High,Core Components,"Vehicle simulation, testing interface"\n';
+                csv += 'Frontend,Secondary Pages UI,5,40,Medium,Core Components,"Cyber Security, Functional Safety, File Viewer"\n';
+                csv += 'Frontend,Modal & Popup Components,1,8,Medium,Core Components,"Profile modal, custom popups, dialogs"\n';
+                csv += 'Frontend,ChatBot Integration,1,8,Medium,Core Layout,"AI assistant interface, chat functionality"\n';
+                csv += 'Frontend,Responsive Design Implementation,2,16,Medium,All Components,"Mobile/tablet compatibility, fluid layouts"\n';
+                
+                // Backend Integration
+                csv += 'Backend,API Service Layer Creation,1,8,High,Backend APIs,"HTTP client, interceptors, error handling"\n';
+                csv += 'Backend,Authentication System,1,8,High,API Service,"Login/logout, session management, security"\n';
+                csv += 'Backend,Data Models & TypeScript Interfaces,1,8,High,API Documentation,"Type definitions, data validation"\n';
+                csv += 'Backend,Feature API Integrations,5,40,High,Frontend UI Complete,"Dashboard, CES, Simulink, Scene/Scenario, Drive Lab"\n';
+                csv += 'Backend,Real-time Features,1.5,12,Medium,All API Integrations,"WebSocket connections, live updates"\n';
+                
+                // Testing & Stabilization
+                csv += 'Testing,Error Handling & Validation,4,32,High,Complete Application,"Global error boundaries, form validation"\n';
+                csv += 'Testing,Electron Integration,2,16,High,Frontend Complete,"Native features, file system, IPC"\n';
+                csv += 'Testing,Comprehensive Testing,4.5,36,High,All Features Complete,"Unit tests, integration tests, E2E testing"\n';
+                csv += 'Testing,Bug Fixes & Performance,3,24,Medium,Testing Results,"Issue resolution, optimization, final polish"\n';
+                csv += 'Testing,App Packaging & Deployment,0.5,4,Low,Final Testing,"Build setup, distribution preparation"\n';
 
-        // Testing & Stabilization
-        csv += "Testing,Global Error Boundary,1,8,High,All Components\n";
-        csv += "Testing,API Error Handling,1,8,High,API Integration\n";
-        csv += "Testing,Form Validation,1,8,Medium,All Forms\n";
-        csv += "Testing,Loading States & UX,1,8,Medium,All Features\n";
-        csv += "Testing,Main Process Updates,1,8,High,Frontend Complete\n";
-        csv += "Testing,IPC Communication,0.5,4,Medium,Main Process\n";
-        csv += "Testing,File System Integration,0.5,4,Medium,IPC Setup\n";
-        csv += "Testing,Unit Testing,2,16,High,All Features\n";
-        csv += "Testing,Integration Testing,1.5,12,High,API Integration\n";
-        csv += "Testing,End-to-End Testing,1,8,Medium,Complete App\n";
-        csv += "Testing,Bug Fixes,2,16,Medium,Testing Results\n";
-        csv += "Testing,Performance Optimization,1,8,Medium,Complete App\n";
-        csv += "Testing,App Packaging,0.5,4,Low,Final Testing\n";
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.setAttribute('hidden', '');
+                a.setAttribute('href', url);
+                a.setAttribute('download', 'IBEX_Simulator_Professional_Estimate.csv');
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                document.body.removeChild(loadingBtn);
 
-        const blob = new Blob([csv], { type: "text/csv" });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.setAttribute("hidden", "");
-        a.setAttribute("href", url);
-        a.setAttribute("download", "IBEX_Simulator_Estimate.csv");
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      }
+                // Success notification
+                const successMsg = document.createElement('div');
+                successMsg.innerHTML = '✅ CSV Report Downloaded Successfully!';
+                successMsg.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #27ae60; color: white; padding: 15px 25px; border-radius: 10px; z-index: 1000; font-weight: 600;';
+                document.body.appendChild(successMsg);
+                setTimeout(() => document.body.removeChild(successMsg), 3000);
+            }, 1500);
+        }
 
-      function printTable() {
-        window.print();
-      }
+        function downloadAsPDF() {
+            const loadingBtn = document.createElement('div');
+            loadingBtn.innerHTML = '<div class="loading-animation"></div> Generating PDF Report...';
+            loadingBtn.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 1000; display: flex; align-items: center; gap: 10px;';
+            document.body.appendChild(loadingBtn);
+
+            setTimeout(() => {
+                window.print();
+                document.body.removeChild(loadingBtn);
+            }, 1000);
+        }
+
+        function printEstimate() {
+            window.print();
+        }
+
+        function shareEstimate() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'IBEX Simulator Project Estimate',
+                    text: 'Professional project development estimate for IBEX Simulator - 46 working days, 368 hours total',
+                    url: window.location.href
+                });
+            } else {
+                // Fallback - copy URL to clipboard
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    const successMsg = document.createElement('div');
+                    successMsg.innerHTML = '🔗 Link copied to clipboard!';
+                    successMsg.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #3498db; color: white; padding: 15px 25px; border-radius: 10px; z-index: 1000; font-weight: 600;';
+                    document.body.appendChild(successMsg);
+                    setTimeout(() => document.body.removeChild(successMsg), 3000);
+                });
+            }
+        }
+
+        // Add print styles
+        const printStyles = `
+            <style media="print">
+                body { background: white !important; }
+                .dashboard-container { box-shadow: none !important; }
+                .action-buttons { display: none !important; }
+                .phase-container { break-inside: avoid; }
+                .content-section { break-inside: avoid; }
+                @page { margin: 1in; }
+            </style>
+        `;
+        document.head.insertAdjacentHTML('beforeend', printStyles);
     </script>
-  </body>
+</body>
 </html>
